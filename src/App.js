@@ -1,27 +1,37 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {} from "react-router-dom";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Home from "./pages/Home";
-import Products from "./pages/Products";
-import "./App.css";
-import Product from "./pages/Product";
-import NotFound from "./pages/NotFound";
+import React, {useState} from "react";
+import Nav from './components/Navbar';
+import { AiOutlineCloseCircle} from "react-icons/ai"
+import { GiHamburgerMenu } from "react-icons/gi";
+
+
 
 function App() {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleNavClick = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
+    
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/about"} element={<About />} />
-          <Route path={"/products"} element={<Products />} />
-          <Route path={"/contact"} element={<Contact />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path={"*"} element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      {!isOpen ?
+
+        <GiHamburgerMenu className="burger"
+          onClick={handleNavClick} /> :
+        <></>
+      }
+      {isOpen ?
+        <>
+          <Nav className="nav-mobile" extra={<AiOutlineCloseCircle
+            className="close"
+            onClick={handleNavClick} />}
+          />
+        </>
+        : <></>}
+      <Nav className="nav-large" />
+     
     </div>
   );
 }
